@@ -1,26 +1,48 @@
 import React from 'react';
-import logo from './logo.svg';
+import Dashboard from './components/Dashboard/Dashboard'
+import Login from './components/Login/Login'
+import Register from './components/Register/Register'
+import Grid from '@material-ui/core/Grid';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(){
+    super()
+    this.state = {
+      route: 'login'
+    }
+  }
+
+  onRouteChange = (route) => {
+    this.setState({route: route});
+  }
+
+  render(){
+    return (
+      <div className='App'>
+
+      {
+      this.state.route === 'dashboard' 
+      
+        ? <Grid container spacing={2} justify='center'>
+            <Grid item xs={8}>
+              <Dashboard onRouteChange={this.onRouteChange}/>
+            </Grid>
+          </Grid>
+        :
+        (
+          this.state.route === 'login' 
+          ? <Login onRouteChange={this.onRouteChange}/>
+          : <Register onRouteChange={this.onRouteChange}/>
+        )
+         
+
+        
+      }
+
+      </div>
+    );
+  }
 }
 
 export default App;
